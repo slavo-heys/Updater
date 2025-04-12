@@ -69,19 +69,12 @@ int main()
             }
         }while(choice != 0);
 
-        printf(green "\nNacisnij ENTER aby zakończyć...\n" reset);
+        /* printf(green "\nNacisnij ENTER aby zakończyć...\n" reset);
         while (getchar() != '\n'); // czekaj na ENTER
         getchar(); // czekaj na ENTER
-        system("clear");
-
-
-    /* string str;
-    cout << "Enter a string: ";
-    getline(cin, str); */
-
-    
-
-    return 0;
+        system("clear"); */
+        
+        return 0;
 }
 
 void updateSystem()
