@@ -24,7 +24,7 @@ int main()
         printf(blue "\t %s \t\t | \t %s\n", "1. apt update", "10. apt autoremove" reset);
         printf(blue "\t %s \t | \t %s\n", "2. apt upgrade", "11. apt clean" reset);
         printf(blue "\t %s \t | \t %s\n", "3. apt full-upgrade", "12. auto" reset);
-        printf(blue "\t %s \t | \t %s\n", "4. apt dist-upgrade", "13. none" reset);
+        printf(blue "\t %s \t | " reset red "\t %s\n", "4. apt dist-upgrade", "0. koniec programu" reset);
         printf(blue "-----------------------------------------------------------\n" reset);
 
         printf(yellow "\nWybierz jedną z opcji: " reset);
