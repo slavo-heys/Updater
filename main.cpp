@@ -21,7 +21,7 @@ int main()
         printf(blue "\n %s\n", "Wybierz jedną z opcji:" reset);
         printf(blue "\t %s \t\t | \t %s\n", "1. apt update", "10. apt autoremove" reset);
         printf(blue "\t %s \t | \t %s\n", "2. apt upgrade", "11. apt clean" reset);
-        printf(blue "\t %s \t | \t %s\n", "3. apt full-upgrade", "12. apt do relase upgrade" reset);
+        printf(blue "\t %s \t | \t %s\n", "3. apt full-upgrade", "12. none" reset);
         printf(blue "\t %s \t | \t %s\n", "4. apt dist-upgrade", "13. none" reset);
         printf(blue "-----------------------------------------------------------\n" reset);
 
@@ -54,10 +54,6 @@ int main()
 
             case 11:
                 cleanSystem();
-                break;
-
-            case 12:
-            doRelaseUpgradeSystem();
                 break;
 
             default:
@@ -236,28 +232,5 @@ void cleanSystem()
     system("clear");
 }
 
-void doRelaseUpgradeSystem()
-{
-    system("clear");
-    printf(yellow "\n\tRozpoczynam polecenie apt-get do-release-upgrade...\n" reset);
-    printf(yellow "\t-----------------------------------------------------\n\n" reset);
-    system("apt-get do-release-upgrade");
-    // jesli polecenie wykonane z bledem
-    if (system("apt-get do-release-upgrade") != 0)
-    {
-        printf(red "Niestety, wystapil blad podczas aktualizacji systemu!\n" reset);
-        printf(red "-----------------------------------------------------\n" reset);
-        exit(1);
-    }
-    else
-    {
-        printf(green "\nSukces!\n" reset);
-        printf(green "-----------------------------------------------------\n" reset);
-    }
 
-    // nacisnij klawisz aby kontynuowac
-    printf(green "\nNacisnij ENTER aby kontynuowac...\n" reset);
-    while (getchar() != '\n'); // czekaj na ENTER
-    getchar(); // czekaj na ENTER
-}
 // koniec pliku main.cpp
