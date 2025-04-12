@@ -4,3 +4,4 @@ void fullUpgradeSystem();
 void distUpgradeSystem();
 void autoremoveSystem();
 void cleanSystem();
+void autoUpdateSystem();

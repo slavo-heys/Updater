@@ -1,6 +1,8 @@
 #include "fun.h"
 #include <iostream>
 #include <string>
+#include <cstdlib>
+#include <unistd.h> // sleep
 
 #define yellow "\033[1;33m"
 #define green "\033[1;32m"
@@ -21,7 +23,7 @@ int main()
         printf(blue "\n %s\n", "Wybierz jedną z opcji:" reset);
         printf(blue "\t %s \t\t | \t %s\n", "1. apt update", "10. apt autoremove" reset);
         printf(blue "\t %s \t | \t %s\n", "2. apt upgrade", "11. apt clean" reset);
-        printf(blue "\t %s \t | \t %s\n", "3. apt full-upgrade", "12. none" reset);
+        printf(blue "\t %s \t | \t %s\n", "3. apt full-upgrade", "12. auto" reset);
         printf(blue "\t %s \t | \t %s\n", "4. apt dist-upgrade", "13. none" reset);
         printf(blue "-----------------------------------------------------------\n" reset);
 
@@ -54,6 +56,10 @@ int main()
 
             case 11:
                 cleanSystem();
+                break;
+
+            case 12:
+                autoUpdateSystem();
                 break;
 
             default:
@@ -232,5 +238,91 @@ void cleanSystem()
     system("clear");
 }
 
+void autoUpdateSystem()
+{
+    system("clear");
+    printf(yellow "\n\tRozpoczynam polecenie sudo apt update...\n" reset);
+    printf(yellow "\t-----------------------------------------------------\n\n" reset);
+    system("sudo apt update");
+    // jesli polecenie wykonane z bledem
+    if (system("sudo apt update") != 0)
+    {
+        printf(red "Niestety, wystapil blad podczas aktualizacji systemu!\n" reset);
+        printf(red "-----------------------------------------------------\n" reset);
+        exit(1);
+    }
+    else
+    {
+        printf(green "\nsudo apt update\n" reset);
+        printf(green "Sukces!\n" reset);
+        printf(green "-----------------------------------------------------\n" reset);
+    }
+    // pausa 3 sekundy
+    sleep(3);
+    system("clear");
+    printf(yellow "\n\tRozpoczynam polecenie sudo apt upgrade...\n" reset);
+    printf(yellow "\t-----------------------------------------------------\n\n" reset);
+    system("sudo apt upgrade");
+    // jesli polecenie wykonane z bledem
+    if (system("sudo apt upgrade") != 0)
+    {
+        printf(red "Niestety, wystapil blad podczas aktualizacji systemu!\n" reset);
+        printf(red "-----------------------------------------------------\n" reset);
+        exit(1);
+    }
+    else
+    {
+        printf(green "\nsudo apt upgrade\n" reset);
+        printf(green "Sukces!\n" reset);
+        printf(green "-----------------------------------------------------\n" reset);
+    }
+    // pausa 3 sekundy
+    sleep(3);
+    system("clear");
+    printf(yellow "\n\tRozpoczynam polecenie sudo apt autoremove...\n" reset);
+    printf(yellow "\t-----------------------------------------------------\n\n" reset);
+    system("sudo apt autoremove -y");
+    // jesli polecenie wykonane z bledem        
+    if (system("sudo apt autoremove") != 0)
+    {
+        printf(red "Niestety, wystapil blad podczas aktualizacji systemu!\n" reset);
+        printf(red "-----------------------------------------------------\n" reset);
+        exit(1);
+    }
+    else
+    {
+        printf(green "\nsudo apt autoremove\n" reset);
+        printf(green "Sukces!\n" reset);
+        printf(green "-----------------------------------------------------\n" reset);
+    }
+    // pausa 3 sekundy
+    sleep(3);
+    system("clear");
+    printf(yellow "\n\tRozpoczynam polecenie sudo apt clean...\n" reset);
+    printf(yellow "\t-----------------------------------------------------\n\n" reset);
+    system("sudo apt clean -y");
+    // jesli polecenie wykonane z bledem
+    if (system("sudo apt clean") != 0)
+    {
+        printf(red "Niestety, wystapil blad podczas aktualizacji systemu!\n" reset);
+        printf(red "-----------------------------------------------------\n" reset);
+        exit(1);
+    }
+    else
+    {
+        printf(green "\nsudo apt clean\n" reset);
+        printf(green "Sukces!\n" reset);
+        printf(green "-----------------------------------------------------\n" reset);
+    }
+    // pausa 3 sekundy
+    sleep(3);
+    system("clear");
+    printf(green "\nNacisnij ENTER aby zakończyć...\n" reset);
+    while (getchar() != '\n'); // czekaj na ENTER
+    getchar(); // czekaj na ENTER
+    system("clear");
+    printf(green "\nKoniec programu!\n" reset);
+    printf(green "-----------------------------------------------------\n" reset);
 
+}
 // koniec pliku main.cpp
