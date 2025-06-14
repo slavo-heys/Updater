@@ -1,5 +1,4 @@
 #include <iostream>
-#include <print>  // Dodajemy nagłówek dla std::print i std::println
 #include <string> // Dla std::string
 #include <thread> // Dla std::this_thread::sleep_for
 #include <chrono> // Dla std::chrono::seconds
@@ -37,9 +36,9 @@ int main()
 
     if (isLinuxSystem)
     {
-        std::println("{}{}{}", C_BLUE, "System operacyjny: Linux", C_RESET);
-        std::println("{}{}{}", C_BLUE, "-------------------------------------------------", C_RESET);
-        std::println("{}Uruchomienie programu... za {} sekund!{}", C_GREEN, TIMER_PAUSE_SECONDS, C_RESET);
+        std::cout << C_BLUE << "System operacyjny: Linux" << C_RESET << std::endl;
+        std::cout << C_BLUE << "-------------------------------------------------" << C_RESET << std::endl;
+        std::cout << C_GREEN << "Uruchomienie programu... za " << TIMER_PAUSE_SECONDS << " sekund!" << C_RESET << std::endl;
         timerPause();                                                                                                  // Wywołaj timerPause, aby poczekać 5 sekund
         clearConsole();
 
@@ -49,21 +48,21 @@ int main()
                                      sysAutoclean();
 
         if (allOperationsSuccessful) {
-            std::println("\n{}{}{}", C_GREEN, "Wszystkie operacje konserwacji systemu zakończone pomyślnie!", C_RESET);
+            std::cout << "\n" << C_GREEN << "Wszystkie operacje konserwacji systemu zakończone pomyślnie!" << C_RESET << std::endl;
         } else {
-            std::println("\n{}{}{}", C_RED, "Nie wszystkie operacje konserwacji systemu zakończyły się pomyślnie. Sprawdź komunikaty powyżej.", C_RESET);
+            std::cout << "\n" << C_RED << "Nie wszystkie operacje konserwacji systemu zakończyły się pomyślnie. Sprawdź komunikaty powyżej." << C_RESET << std::endl;
             exitCode = 1; // Ustaw kod wyjścia na błąd
         }
     }
     else
     {
-        std::println("{}{}{}", C_RED, "System operacyjny: Inny niż Linux (np. Windows)", C_RESET);
-        std::println("{}{}{}", C_RED, "Ten program jest przeznaczony do automatycznej aktualizacji systemów Linux (bazujących na APT).", C_RESET);
-        std::println("{}{}{}", C_RED, "Nie można kontynuować na bieżącym systemie operacyjnym.\n", C_RESET);
+        std::cout << C_RED << "System operacyjny: Inny niż Linux (np. Windows)" << C_RESET << std::endl;
+        std::cout << C_RED << "Ten program jest przeznaczony do automatycznej aktualizacji systemów Linux (bazujących na APT)." << C_RESET << std::endl;
+        std::cout << C_RED << "Nie można kontynuować na bieżącym systemie operacyjnym.\n" << C_RESET << std::endl;
         exitCode = 1; // Ustaw kod wyjścia na błąd
     }
     // Poczekaj na dane wejściowe od użytkownika przed zamknięciem okna konsoli
-    std::println("Naciśnij Enter, aby zakończyć...");
+    std::cout << "Naciśnij Enter, aby zakończyć..." << std::endl;
     std::cin.get(); // Pozostaje bez zmian, służy do pauzy
     return exitCode;
 }
@@ -73,16 +72,16 @@ int main()
 //+----------------------------------------------------------------------+
 bool executeSystemCommand(const std::string& command, const std::string& operationMessage) {
     clearConsole();
-    std::println("{}{}{}", C_YELLOW, operationMessage, C_RESET);
+    std::cout << C_YELLOW << operationMessage << C_RESET << std::endl;
     int result = std::system(command.c_str());
     clearConsole();
     if (result == 0) {
-        std::println("{}{}{}", C_GREEN, "Operacja zakończona pomyślnie!", C_RESET);
+        std::cout << C_GREEN << "Operacja zakończona pomyślnie!" << C_RESET << std::endl;
     } else {
-        std::println("{}{}{}", C_RED, "Wystąpił błąd podczas operacji.", C_RESET);
-        std::println("{}Kod błędu: {}{}", C_RED, result, C_RESET);
+        std::cout << C_RED << "Wystąpił błąd podczas operacji." << C_RESET << std::endl;
+        std::cout << C_RED << "Kod błędu: " << result << C_RESET << std::endl;
     }
-    std::println("{}{}{}", C_GREEN, "-------------------------------------------------", C_RESET);
+    std::cout << C_GREEN << "-------------------------------------------------" << C_RESET << std::endl;
     timerPause(); // Pauza, aby użytkownik mógł przeczytać wiadomość
     clearConsole();
     return result == 0;
@@ -158,3 +157,6 @@ bool sysAutoclean()
     // Nie ma potrzeby sprawdzania 'isLinuxSystem' tutaj, main() już to zrobił.
     return executeSystemCommand("sudo apt autoclean -y", "Czyszczenie lokalnego repozytorium pobranych plików pakietów (apt autoclean -y)...\n\n");
 }
+
+// koniec pliku main.cpp
+// kompilacja poleceniem: g++ -std=c++17 updater_2.cpp -o updater_2 -pthread
